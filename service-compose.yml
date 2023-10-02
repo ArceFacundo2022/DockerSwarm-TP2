@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  apache1:
+    image: apache-compose:latest
+    deploy:
+      replicas: 5
+    ports:
+      - "80:80"

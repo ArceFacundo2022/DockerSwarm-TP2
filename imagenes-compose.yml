@@ -1,0 +1,38 @@
+version: '3'
+
+services: 
+  service-apache:
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
+    volumes:
+      - ./apache/apache-datos:/usr/local/apache2/htdocs
+    ports:
+      - 8082:80
+    networks:
+      - redswarm
+
+  service-node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    volumes:
+      - ./node/node-datos:/app 
+    ports:
+      - 8081:80
+    networks:
+      - redswarm
+
+  service-mysql:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes:
+      - ./db/db-datos:/var/lib/mysql
+    networks:
+      - redswarm
+
+networks:
+  reddocker:
+    external:
+      name: redswarm
